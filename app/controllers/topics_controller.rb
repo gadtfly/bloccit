@@ -1,6 +1,6 @@
 class TopicsController < ApplicationController
   def index
-    @topics = Topic.all
+    @topics = Topic.paginate(page: params[:page], per_page: 10)
     authorize @topics
     # raise Pundit::NotAuthorizedError unless TopicPolicy.new(current_user, @topics).index?
   end
@@ -12,7 +12,7 @@ class TopicsController < ApplicationController
 
   def show
     @topic = Topic.find(params[:id])
-    @posts = @topic.posts
+    @posts = @topic.posts.paginate(page: params[:page], per_page: 4)
     authorize @topic
     # raise Pundit::NotAuthorizedError unless TopicPolicy.new(current_user, @topic).index?
   end
