@@ -2,6 +2,7 @@ class TopicsController < ApplicationController
   def index
     @topics = Topic.all
     authorize @topics
+    # raise Pundit::NotAuthorizedError unless TopicPolicy.new(current_user, @topics).index?
   end
 
   def new
@@ -13,6 +14,7 @@ class TopicsController < ApplicationController
     @topic = Topic.find(params[:id])
     @posts = @topic.posts
     authorize @topic
+    # raise Pundit::NotAuthorizedError unless TopicPolicy.new(current_user, @topic).index?
   end
 
   def edit
