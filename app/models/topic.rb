@@ -1,3 +1,3 @@
 class Topic < ActiveRecord::Base
-  has_many :posts, inverse_of: :topic
+  has_many :posts
 end
