@@ -3,16 +3,17 @@
   <div class="col-md-8">
      <h2>Comments</h2>
     <% comments.each do |comment| %>
-    <div class="media">
-      <div class="media-body">
-        <h4 class="media-heading">
-          <small>
-           <%= comment.body %><br />
-          submitted by <%= comment.user.name %>
-          </small>
-        </h4>
+      <div class="media">
+        <div class="media-body">
+            <small>
+              <%= comment.user.name %> commented <%= time_ago_in_words(comment.created_at) %> ago 
+             <% if policy(comment).destroy? %>
+                <%= link_to "Delete", [@topic, @post, comment], method: :delete %>
+              <% end %>
+            </small>
+            <p><%= comment.body %></p>
+        </div>
       </div>
-    </div>
     <% end %>
   </div>
 </div>
