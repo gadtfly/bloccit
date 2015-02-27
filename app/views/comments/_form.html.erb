@@ -1,7 +1,7 @@
 <div class="row">
   <div class="col-md-7">
     <h3> Add a Comment <h3>
-    <%= form_for [topic, post, comment]  do |f| %>
+    <%= form_for [post, comment]  do |f| %>
      <% if comment.errors.any? %>
         <div class="alert alert-danger">
           <h4>There are <%= pluralize(comment.errors.count, "error") %>Errors.</h4>

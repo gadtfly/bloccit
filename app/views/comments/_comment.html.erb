@@ -8,7 +8,8 @@
             <small>
               <%= comment.user.name %> commented <%= time_ago_in_words(comment.created_at) %> ago 
              <% if policy(comment).destroy? %>
-                <%= link_to "Delete", [@topic, @post, comment], method: :delete %>
+                <%= link_to "Delete", [@post, comment], method: :delete %>
+                <!-- DELETE requeste route [@topic, @post, @comment] aka topic/:topic_id/post/post/:post_id/comments/:id because shallow nesting allows a DELETE request route post/:post_id/comments/:id -->
               <% end %>
             </small>
             <p><%= comment.body %></p>
