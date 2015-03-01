@@ -5,8 +5,8 @@ describe Post do
 
     before do
       @post = Post.create(title: 'post title', body: 'post bodies must be at least 20 long.')
-      3.times { @post.votes.create(value: 1) }
-      2.times { @post.votes.create(value: -1)}
+      3.times{ @post.votes.create(value: 1) }
+      2.times{ @post.votes.create(value: -1)}
     end
 
     describe '#up_votes' do
