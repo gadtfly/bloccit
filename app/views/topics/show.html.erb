@@ -22,7 +22,6 @@
       </div>
     <% end %>
     <%= will_paginate @posts %>
-
   </div>
   <div>
     <% if policy(Post.new).create? %>
