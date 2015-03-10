@@ -11,23 +11,41 @@ describe Comment do
       @comment = Comment.new(body: 'My comment', post: @post, user_id: 10000)
     end
 
-    it "sends an email to users who have favorited the post" do
-      @user.favorites.where(post: @post).create
+    context "with user's permission" do
+      #we don't have to set the attribute of :email_favorites to true because it's
+      #already true by default
+      it "sends an email to users who have favorited the post" do
+        @user.favorites.where(post: @post).create
 
-      #wtf
-      allow( FavoriteMailer )
-        .to receive(:new_comment)
-        .with(@user, @post, @comment)
-        .and_return( double(delivery_now: true))
-
-      @comment.save
-    end
-
-    it "does not send emails to user who haven't" do
-      expect( FavoriteMailer )
-        .not_to receive(:new_comment)
+        allow( FavoriteMailer )
+          .to receive(:new_comment)
+          .with(@user, @post, @comment)
+          .and_return( double(delivery_now: true))
 
         @comment.save
+      end
+
+      it "does not send emails to user who haven't" do
+        expect( FavoriteMailer )
+          .not_to receive(:new_comment)
+
+          @comment.save
+      end
+    end
+
+    context "without permission" do
+
+      before { @user.update_attribute(:email_favorites, false) }
+
+      it "does not send emails, even to user who have favorited" do
+        @user.favorites.where(post: @post).create
+
+        expect( FavoriteMailer )
+         .not_to receive(:new_comment)
+
+         @comment.save
+      end
+
     end
 
   end

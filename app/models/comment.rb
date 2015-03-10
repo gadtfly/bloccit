@@ -14,7 +14,16 @@ class Comment < ActiveRecord::Base
 
   def send_favorite_emails
     post.favorites.each do |favorite|
-      FavoriteMailer.new_comment(favorite.user, post, self).deliver
+      if should_receive_update_for?(favorite)
+        FavoriteMailer.new_comment(favorite.user, post, self).deliver
+      end
     end
   end
+
+  def should_receive_update_for?(favorite)
+    user_id != favorite.user_id && favorite.user.email_favorites?
+    #the user id of the person creating the comment is NOT equal to the user that favorited the post
+    # && separately the person needs to have enabled receiving mail (so the value of self.favorite.user.email_favorites?)
+  end
 end
+
