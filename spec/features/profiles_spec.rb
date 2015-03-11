@@ -9,7 +9,7 @@ describe "Visiting Profiles" do
     @post = associated_post(user: @user)
     @comment = Comment.new(user: @user, body: "Best comment ever by Juan!")
     allow(@comment).to receive(:send_favorite_emails)
-    @comment.save
+    @comment.save!
 
   end
 
