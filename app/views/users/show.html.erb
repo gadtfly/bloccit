@@ -1,0 +1,17 @@
+<div>
+  <div class="tabbable tabs-left">
+    <ul class="nav nav-tabs">
+      <li class="active"><a href="#posts" data-toggle="tab">Posts</a></li>
+      <li><a href="#comments" data-toggle="tab">Comments</a></li>
+    </ul>
+    <div class="tab-content">
+      <div class="tab-pane active" id="posts">
+        <!-- if confused about rendering the 'posts/_post.html.erb partial' see: 'http://guides.rubyonrails.org/layouts_and_rendering.html#rendering-collections' --> 
+        <%= render @posts %>
+      </div>
+      <div class="tab-pane" id="comments">
+        <%= render @comments %>
+      </div>
+    </div>
+  </div>
+</div>
